@@ -1,0 +1,1512 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Justice Liassidzi — Digital Marketing Executive</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600&family=Syne:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+<style>
+/*──────────────────────────────────────────────
+  RESET & ROOT
+──────────────────────────────────────────────*/
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --void:#080808;
+  --deep:#0f0f0f;
+  --surface:#161616;
+  --border:#252525;
+  --muted:#3a3a3a;
+  --smoke:#888;
+  --silver:#bbb;
+  --snow:#f0ede8;
+  --gold:#c9a84c;
+  --gold-dim:rgba(201,168,76,0.15);
+  --gold-line:rgba(201,168,76,0.35);
+  --red:#c0392b;
+  --white:#ffffff;
+  --r: 'Cormorant Garamond', Georgia, serif;
+  --s: 'Syne', sans-serif;
+}
+html{scroll-behavior:smooth;font-size:16px;}
+body{
+  background:var(--void);
+  color:var(--snow);
+  font-family:var(--s);
+  cursor:none;
+  overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+}
+a{text-decoration:none;color:inherit;}
+img{display:block;max-width:100%;}
+ul{list-style:none;}
+
+/*──────────────────────────────────────────────
+  CUSTOM CURSOR
+──────────────────────────────────────────────*/
+#cursor{
+  position:fixed;width:10px;height:10px;
+  background:var(--gold);border-radius:50%;
+  pointer-events:none;z-index:99999;
+  transform:translate(-50%,-50%);
+  transition:width .2s,height .2s,background .2s;
+  mix-blend-mode:difference;
+}
+#cursor-ring{
+  position:fixed;width:36px;height:36px;
+  border:1px solid rgba(201,168,76,.5);
+  border-radius:50%;pointer-events:none;
+  z-index:99998;transform:translate(-50%,-50%);
+  transition:all .12s cubic-bezier(.25,.46,.45,.94);
+}
+body:hover #cursor{opacity:1;}
+a:hover~#cursor,button:hover~#cursor{width:20px;height:20px;}
+
+/*──────────────────────────────────────────────
+  SCROLLBAR
+──────────────────────────────────────────────*/
+::-webkit-scrollbar{width:2px;}
+::-webkit-scrollbar-track{background:var(--void);}
+::-webkit-scrollbar-thumb{background:var(--gold);}
+
+/*──────────────────────────────────────────────
+  GRAIN OVERLAY
+──────────────────────────────────────────────*/
+#grain{
+  position:fixed;inset:0;pointer-events:none;z-index:9000;
+  opacity:.028;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
+}
+
+/*──────────────────────────────────────────────
+  LOADER
+──────────────────────────────────────────────*/
+#loader{
+  position:fixed;inset:0;background:var(--void);z-index:9998;
+  display:flex;align-items:center;justify-content:center;
+  flex-direction:column;gap:2rem;
+  transition:opacity .8s ease, visibility .8s ease;
+}
+#loader.hidden{opacity:0;visibility:hidden;}
+.loader-name{
+  font-family:var(--r);font-size:clamp(2rem,5vw,4rem);
+  font-weight:300;letter-spacing:.25em;color:var(--snow);
+  overflow:hidden;
+}
+.loader-name span{
+  display:inline-block;
+  animation:revealUp 1s cubic-bezier(.77,0,.18,1) forwards;
+  opacity:0;
+}
+.loader-name span:nth-child(1){animation-delay:.1s;}
+.loader-name span:nth-child(2){animation-delay:.2s;}
+.loader-name span:nth-child(3){animation-delay:.3s;}
+@keyframes revealUp{
+  from{transform:translateY(100%);opacity:0;}
+  to{transform:translateY(0);opacity:1;}
+}
+.loader-bar-wrap{
+  width:200px;height:1px;background:var(--border);
+  position:relative;overflow:hidden;
+}
+.loader-bar{
+  position:absolute;top:0;left:-100%;height:100%;
+  background:var(--gold);width:100%;
+  animation:loadBar 1.6s cubic-bezier(.77,0,.18,1) .4s forwards;
+}
+@keyframes loadBar{from{left:-100%;}to{left:0;}}
+.loader-pct{
+  font-family:var(--r);font-size:.8rem;letter-spacing:.3em;
+  color:var(--smoke);font-weight:300;
+  animation:countUp 1.6s .4s forwards;
+}
+@keyframes countUp{
+  0%{content:'000';}
+  100%{counter-increment:pct 100;}
+}
+
+/*──────────────────────────────────────────────
+  NAVIGATION
+──────────────────────────────────────────────*/
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:500;
+  padding:2rem 4rem;
+  display:flex;justify-content:space-between;align-items:center;
+  transition:background .4s,padding .3s;
+}
+nav.scrolled{
+  background:rgba(8,8,8,.92);
+  backdrop-filter:blur(20px);
+  padding:1.2rem 4rem;
+  border-bottom:1px solid var(--border);
+}
+.nav-wordmark{
+  font-family:var(--r);font-size:1.1rem;font-weight:600;
+  letter-spacing:.12em;color:var(--snow);
+  text-transform:uppercase;
+}
+.nav-wordmark span{color:var(--gold);}
+.nav-links{display:flex;gap:3rem;align-items:center;}
+.nav-links a{
+  font-size:.68rem;font-weight:600;letter-spacing:.22em;
+  text-transform:uppercase;color:var(--smoke);
+  position:relative;padding-bottom:2px;
+  transition:color .25s;
+}
+.nav-links a::after{
+  content:'';position:absolute;bottom:0;left:0;
+  width:0;height:1px;background:var(--gold);
+  transition:width .3s ease;
+}
+.nav-links a:hover{color:var(--snow);}
+.nav-links a:hover::after{width:100%;}
+.nav-cta{
+  font-size:.65rem;font-weight:700;letter-spacing:.2em;
+  text-transform:uppercase;padding:.65rem 1.6rem;
+  border:1px solid var(--gold-line);color:var(--gold);
+  transition:background .25s,color .25s;
+}
+.nav-cta:hover{background:var(--gold);color:var(--void);}
+
+/*──────────────────────────────────────────────
+  HERO
+──────────────────────────────────────────────*/
+#hero{
+  min-height:100vh;
+  display:grid;
+  grid-template-rows:1fr auto;
+  padding:0 4rem;
+  position:relative;
+  overflow:hidden;
+}
+
+/* ── background grid lines ── */
+.hero-grid{
+  position:absolute;inset:0;
+  background-image:
+    linear-gradient(var(--border) 1px,transparent 1px),
+    linear-gradient(90deg,var(--border) 1px,transparent 1px);
+  background-size:80px 80px;
+  opacity:.3;mask-image:radial-gradient(ellipse 80% 80% at 50% 50%,black 40%,transparent 100%);
+}
+/* ── golden diagonal accent ── */
+.hero-diagonal{
+  position:absolute;top:0;right:0;
+  width:55%;height:100%;
+  background:linear-gradient(135deg,transparent 40%,rgba(201,168,76,.04) 100%);
+  clip-path:polygon(25% 0,100% 0,100% 100%,0 100%);
+}
+.hero-diagonal::before{
+  content:'';position:absolute;
+  top:0;left:0;right:0;bottom:0;
+  border-left:1px solid var(--gold-line);
+}
+
+/* ── main content ── */
+.hero-content{
+  display:flex;flex-direction:column;
+  justify-content:flex-end;
+  padding-bottom:6rem;
+  padding-top:12rem;
+  position:relative;z-index:2;
+  max-width:900px;
+}
+.hero-pre{
+  display:flex;align-items:center;gap:1rem;
+  font-size:.65rem;font-weight:700;letter-spacing:.35em;
+  text-transform:uppercase;color:var(--gold);
+  margin-bottom:2.5rem;
+  opacity:0;animation:fadeIn .8s 2s forwards;
+}
+.hero-pre::before{content:'';display:block;width:48px;height:1px;background:var(--gold);}
+.hero-pre .dot{width:4px;height:4px;border-radius:50%;background:var(--gold);}
+
+.hero-h1{
+  font-family:var(--r);
+  font-size:clamp(5rem,11vw,10rem);
+  font-weight:300;line-height:.92;
+  letter-spacing:-.02em;
+  color:var(--snow);
+  margin-bottom:.6rem;
+  opacity:0;animation:slideUp .9s cubic-bezier(.77,0,.18,1) 2.1s forwards;
+}
+.hero-h1 em{
+  font-style:italic;
+  background:linear-gradient(90deg,var(--gold),#e8cc7a,var(--gold));
+  background-size:200%;
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;
+  animation:shimmer 4s 3s linear infinite;
+}
+@keyframes shimmer{0%{background-position:0%;}100%{background-position:200%;}}
+
+.hero-role{
+  font-family:var(--r);font-size:clamp(1.4rem,2.8vw,2.2rem);
+  font-weight:300;font-style:italic;color:var(--smoke);
+  margin-bottom:3rem;letter-spacing:.04em;
+  opacity:0;animation:fadeIn .8s 2.4s forwards;
+}
+
+.hero-desc{
+  font-size:.88rem;line-height:2;color:var(--silver);
+  max-width:520px;
+  font-weight:400;letter-spacing:.02em;
+  opacity:0;animation:fadeIn .8s 2.6s forwards;
+}
+
+.hero-actions{
+  display:flex;gap:1.5rem;margin-top:3.5rem;
+  flex-wrap:wrap;
+  opacity:0;animation:fadeIn .8s 2.8s forwards;
+}
+.btn-gold{
+  display:inline-flex;align-items:center;gap:.8rem;
+  padding:.9rem 2.4rem;
+  background:var(--gold);color:var(--void);
+  font-family:var(--s);font-size:.68rem;font-weight:700;
+  letter-spacing:.2em;text-transform:uppercase;
+  transition:transform .2s,box-shadow .2s;
+  position:relative;overflow:hidden;
+}
+.btn-gold::before{
+  content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.25),transparent);
+  transition:left .4s;
+}
+.btn-gold:hover{transform:translateY(-2px);box-shadow:0 12px 40px rgba(201,168,76,.3);}
+.btn-gold:hover::before{left:100%;}
+.btn-ghost{
+  display:inline-flex;align-items:center;gap:.8rem;
+  padding:.9rem 2.4rem;
+  border:1px solid var(--border);color:var(--silver);
+  font-family:var(--s);font-size:.68rem;font-weight:600;
+  letter-spacing:.2em;text-transform:uppercase;
+  transition:border-color .25s,color .25s;
+}
+.btn-ghost:hover{border-color:var(--silver);color:var(--snow);}
+
+/* ── hero scroll strip ── */
+.hero-strip{
+  display:flex;justify-content:space-between;align-items:flex-end;
+  padding-bottom:2.5rem;position:relative;z-index:2;
+  border-top:1px solid var(--border);padding-top:2rem;
+  opacity:0;animation:fadeIn .8s 3s forwards;
+}
+.hero-stat{display:flex;flex-direction:column;gap:.3rem;}
+.hero-stat-n{
+  font-family:var(--r);font-size:2.4rem;font-weight:600;
+  color:var(--snow);line-height:1;
+}
+.hero-stat-n sup{font-size:1rem;color:var(--gold);}
+.hero-stat-l{
+  font-size:.6rem;font-weight:700;letter-spacing:.22em;
+  text-transform:uppercase;color:var(--smoke);
+}
+.scroll-cue{
+  display:flex;flex-direction:column;align-items:center;gap:.5rem;
+  font-size:.58rem;letter-spacing:.25em;text-transform:uppercase;
+  color:var(--muted);
+}
+.scroll-line{
+  width:1px;height:50px;background:linear-gradient(var(--gold),transparent);
+  animation:scrollAnim 2s ease infinite;
+}
+@keyframes scrollAnim{
+  0%{transform:scaleY(0);transform-origin:top;}
+  50%{transform:scaleY(1);transform-origin:top;}
+  51%{transform:scaleY(1);transform-origin:bottom;}
+  100%{transform:scaleY(0);transform-origin:bottom;}
+}
+
+@keyframes slideUp{from{opacity:0;transform:translateY(40px);}to{opacity:1;transform:translateY(0);}}
+@keyframes fadeIn{from{opacity:0;}to{opacity:1;}}
+
+/*──────────────────────────────────────────────
+  MARQUEE TICKER
+──────────────────────────────────────────────*/
+.ticker{
+  background:var(--gold);padding:.75rem 0;overflow:hidden;
+  border-top:1px solid rgba(0,0,0,.2);
+  border-bottom:1px solid rgba(0,0,0,.2);
+}
+.ticker-inner{
+  display:flex;gap:0;
+  animation:ticker 25s linear infinite;
+  width:max-content;
+}
+.ticker-inner span{
+  font-size:.65rem;font-weight:700;letter-spacing:.25em;
+  text-transform:uppercase;color:var(--void);
+  white-space:nowrap;padding:0 2.5rem;
+  display:flex;align-items:center;gap:2.5rem;
+}
+.ticker-inner span::after{content:'✦';opacity:.4;}
+@keyframes ticker{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+
+/*──────────────────────────────────────────────
+  SECTION UTILITY
+──────────────────────────────────────────────*/
+.section{padding:9rem 4rem;}
+.section-inner{max-width:1200px;margin:0 auto;}
+
+.s-label{
+  display:inline-flex;align-items:center;gap:.8rem;
+  font-size:.6rem;font-weight:700;letter-spacing:.3em;
+  text-transform:uppercase;color:var(--gold);
+  margin-bottom:2rem;
+}
+.s-label::before{content:'';display:block;width:30px;height:1px;background:var(--gold);}
+
+.s-heading{
+  font-family:var(--r);
+  font-size:clamp(2.8rem,5vw,5rem);
+  font-weight:300;line-height:1.0;
+  letter-spacing:-.02em;
+  color:var(--snow);
+  margin-bottom:1.5rem;
+}
+.s-heading em{font-style:italic;color:var(--gold);}
+
+.s-body{
+  font-size:.9rem;line-height:1.95;
+  color:var(--silver);max-width:500px;
+  margin-bottom:5rem;
+}
+
+/* ── reveal on scroll ── */
+.reveal{
+  opacity:0;transform:translateY(30px);
+  transition:opacity .7s ease,transform .7s ease;
+}
+.reveal.visible{opacity:1;transform:translateY(0);}
+.reveal-delay-1{transition-delay:.1s;}
+.reveal-delay-2{transition-delay:.2s;}
+.reveal-delay-3{transition-delay:.3s;}
+.reveal-delay-4{transition-delay:.4s;}
+.reveal-delay-5{transition-delay:.5s;}
+
+/*──────────────────────────────────────────────
+  ABOUT
+──────────────────────────────────────────────*/
+#about{background:var(--deep);}
+.about-layout{
+  display:grid;grid-template-columns:1fr 1fr;gap:8rem;align-items:start;
+}
+.about-text p{
+  font-size:.95rem;line-height:2.0;color:var(--silver);
+  margin-bottom:1.5rem;
+}
+.about-text p strong{color:var(--gold);font-weight:600;}
+.about-text p em{font-family:var(--r);font-style:italic;font-size:1.05rem;color:var(--snow);}
+
+.about-details{margin-top:3rem;display:flex;flex-direction:column;gap:.9rem;}
+.about-detail{
+  display:flex;align-items:center;gap:1.2rem;
+  padding:.9rem 1.2rem;border:1px solid var(--border);
+  transition:border-color .25s;
+}
+.about-detail:hover{border-color:var(--gold-line);}
+.about-detail-icon{
+  width:32px;height:32px;background:var(--gold-dim);
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+}
+.about-detail-icon svg{width:14px;height:14px;color:var(--gold);}
+.about-detail-text{font-size:.82rem;color:var(--silver);}
+.about-detail-text a{color:var(--silver);transition:color .2s;}
+.about-detail-text a:hover{color:var(--gold);}
+.about-detail-sub{font-size:.68rem;color:var(--smoke);letter-spacing:.08em;margin-top:.1rem;}
+
+/* profile card */
+.profile-card{
+  position:sticky;top:8rem;
+  border:1px solid var(--border);
+  background:var(--surface);
+  overflow:hidden;
+}
+.profile-card-top{
+  height:280px;
+  background:linear-gradient(135deg,var(--surface) 0%,#1a1500 100%);
+  display:flex;align-items:center;justify-content:center;
+  position:relative;overflow:hidden;
+}
+.profile-initials{
+  font-family:var(--r);font-size:7rem;font-weight:300;
+  color:rgba(201,168,76,.15);letter-spacing:-.04em;
+  position:absolute;
+  user-select:none;
+}
+.profile-monogram{
+  width:110px;height:110px;border:1px solid var(--gold-line);
+  border-radius:50%;display:flex;align-items:center;justify-content:center;
+  position:relative;z-index:2;
+  font-family:var(--r);font-size:2.8rem;font-weight:600;
+  color:var(--gold);letter-spacing:.05em;
+}
+.profile-ring{
+  position:absolute;width:130px;height:130px;
+  border:1px dashed rgba(201,168,76,.2);border-radius:50%;
+  animation:spin 20s linear infinite;
+}
+@keyframes spin{to{transform:rotate(360deg);}}
+.profile-ring::before{
+  content:'✦';position:absolute;top:-6px;left:50%;transform:translateX(-50%);
+  color:var(--gold);font-size:.5rem;
+}
+.profile-card-body{padding:2rem;}
+.profile-card-name{
+  font-family:var(--r);font-size:1.6rem;font-weight:600;
+  color:var(--snow);margin-bottom:.3rem;
+}
+.profile-card-title{
+  font-size:.7rem;font-weight:600;letter-spacing:.18em;
+  text-transform:uppercase;color:var(--gold);margin-bottom:1.5rem;
+}
+.profile-card-tags{display:flex;flex-wrap:wrap;gap:.5rem;}
+.ptag{
+  font-size:.62rem;font-weight:600;letter-spacing:.1em;
+  text-transform:uppercase;padding:.3rem .8rem;
+  border:1px solid var(--border);color:var(--smoke);
+  transition:all .2s;
+}
+.ptag:hover{border-color:var(--gold-line);color:var(--gold);}
+
+/*──────────────────────────────────────────────
+  EXPERTISE / SKILLS
+──────────────────────────────────────────────*/
+#expertise{background:var(--void);}
+.expertise-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  border:1px solid var(--border);
+}
+.exp-card{
+  padding:3rem 2.5rem;border-right:1px solid var(--border);
+  border-bottom:1px solid var(--border);
+  position:relative;overflow:hidden;
+  transition:background .3s;
+}
+.exp-card:nth-child(3n){border-right:none;}
+.exp-card:hover{background:var(--surface);}
+.exp-card::after{
+  content:'';position:absolute;
+  bottom:0;left:0;width:0;height:2px;
+  background:var(--gold);transition:width .4s ease;
+}
+.exp-card:hover::after{width:100%;}
+.exp-num{
+  font-family:var(--r);font-size:4rem;font-weight:300;
+  color:var(--border);line-height:1;margin-bottom:1.5rem;
+  transition:color .3s;
+}
+.exp-card:hover .exp-num{color:var(--gold-line);}
+.exp-title{
+  font-size:.78rem;font-weight:700;letter-spacing:.15em;
+  text-transform:uppercase;color:var(--snow);margin-bottom:.8rem;
+}
+.exp-desc{
+  font-size:.82rem;line-height:1.8;color:var(--smoke);
+}
+.exp-tags{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:1.5rem;}
+.exp-tag{
+  font-size:.58rem;font-weight:600;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--smoke);
+  border:1px solid var(--border);padding:.2rem .6rem;
+}
+
+/*──────────────────────────────────────────────
+  EXPERIENCE TIMELINE
+──────────────────────────────────────────────*/
+#experience{background:var(--deep);position:relative;}
+#experience::before{
+  content:'';position:absolute;
+  left:calc(4rem + 24px);top:0;bottom:0;
+  width:1px;background:var(--border);
+}
+.xp-item{
+  display:grid;grid-template-columns:auto 1fr;gap:4rem;
+  padding:4rem 0;border-bottom:1px solid var(--border);
+  position:relative;
+}
+.xp-item:last-child{border-bottom:none;}
+.xp-left{
+  display:flex;flex-direction:column;align-items:center;
+  position:relative;padding-top:.3rem;
+}
+.xp-dot{
+  width:9px;height:9px;border-radius:50%;
+  background:var(--gold);flex-shrink:0;
+  box-shadow:0 0 16px var(--gold);
+}
+.xp-year{
+  font-family:var(--r);font-size:.8rem;font-style:italic;
+  color:var(--smoke);writing-mode:vertical-rl;
+  transform:rotate(180deg);margin-top:1.5rem;
+  letter-spacing:.1em;white-space:nowrap;
+}
+.xp-right{}
+.xp-period{
+  font-size:.62rem;font-weight:700;letter-spacing:.22em;
+  text-transform:uppercase;color:var(--gold);margin-bottom:.8rem;
+}
+.xp-role{
+  font-family:var(--r);font-size:2rem;font-weight:600;
+  color:var(--snow);margin-bottom:.3rem;line-height:1.1;
+}
+.xp-company{
+  font-size:.78rem;font-weight:500;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--smoke);margin-bottom:2rem;
+}
+.xp-company span{color:var(--silver);}
+.xp-list{display:flex;flex-direction:column;gap:.7rem;}
+.xp-list li{
+  font-size:.88rem;line-height:1.7;color:var(--silver);
+  padding-left:1.5rem;position:relative;
+}
+.xp-list li::before{
+  content:'';position:absolute;left:0;top:.65rem;
+  width:6px;height:1px;background:var(--gold);
+}
+
+/*──────────────────────────────────────────────
+  SELECTED WORK / CAMPAIGNS
+──────────────────────────────────────────────*/
+#work{background:var(--void);}
+.work-grid{display:grid;grid-template-columns:1fr 1fr;gap:2px;}
+.work-card{
+  background:var(--surface);padding:3.5rem;
+  position:relative;overflow:hidden;
+  transition:background .3s;
+  border:1px solid var(--border);
+  margin:-1px;
+}
+.work-card:hover{background:#1a1a1a;}
+.work-card-index{
+  font-family:var(--r);font-size:5rem;font-weight:300;
+  color:var(--border);line-height:1;
+  position:absolute;top:2rem;right:2.5rem;
+  transition:color .3s;
+}
+.work-card:hover .work-card-index{color:var(--gold-line);}
+.work-type{
+  display:inline-block;font-size:.6rem;font-weight:700;
+  letter-spacing:.22em;text-transform:uppercase;
+  color:var(--gold);border:1px solid var(--gold-line);
+  padding:.25rem .7rem;margin-bottom:1.5rem;
+}
+.work-title{
+  font-family:var(--r);font-size:1.7rem;font-weight:600;
+  line-height:1.15;color:var(--snow);margin-bottom:1rem;
+}
+.work-desc{
+  font-size:.84rem;line-height:1.8;color:var(--smoke);
+  margin-bottom:2rem;
+}
+.work-metrics{
+  display:flex;gap:2rem;flex-wrap:wrap;
+  padding-top:1.5rem;border-top:1px solid var(--border);
+}
+.wm{display:flex;flex-direction:column;gap:.2rem;}
+.wm-v{
+  font-family:var(--r);font-size:1.5rem;font-weight:600;
+  color:var(--gold);line-height:1;
+}
+.wm-l{
+  font-size:.58rem;font-weight:700;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--smoke);
+}
+
+/*──────────────────────────────────────────────
+  TOOLS & TECH
+──────────────────────────────────────────────*/
+#tools{background:var(--deep);overflow:hidden;}
+.tools-header{
+  display:grid;grid-template-columns:1fr 1fr;gap:6rem;
+  align-items:end;margin-bottom:5rem;
+}
+.tools-categories{display:flex;flex-direction:column;gap:3rem;}
+.tool-cat{}
+.tool-cat-label{
+  font-size:.6rem;font-weight:700;letter-spacing:.28em;
+  text-transform:uppercase;color:var(--gold);
+  margin-bottom:1.2rem;padding-bottom:.8rem;
+  border-bottom:1px solid var(--border);
+}
+.tool-chips{display:flex;flex-wrap:wrap;gap:.5rem;}
+.tool-chip{
+  font-size:.72rem;font-weight:500;letter-spacing:.06em;
+  padding:.55rem 1.1rem;border:1px solid var(--border);
+  color:var(--silver);transition:all .2s;
+}
+.tool-chip:hover{
+  border-color:var(--gold-line);color:var(--gold);
+  background:var(--gold-dim);
+}
+/* big floating number bg */
+.tools-big-text{
+  font-family:var(--r);font-size:clamp(6rem,18vw,18rem);
+  font-weight:300;color:rgba(255,255,255,.015);
+  pointer-events:none;user-select:none;
+  position:absolute;right:-2rem;bottom:-2rem;
+  line-height:1;letter-spacing:-.04em;
+}
+
+/*──────────────────────────────────────────────
+  EDUCATION & CERTS
+──────────────────────────────────────────────*/
+#credentials{background:var(--void);}
+.cred-layout{
+  display:grid;grid-template-columns:1fr 1fr;gap:6rem;
+}
+.cred-col-label{
+  font-family:var(--r);font-size:1.5rem;font-weight:600;
+  font-style:italic;color:var(--snow);margin-bottom:2.5rem;
+  padding-bottom:1.5rem;border-bottom:1px solid var(--border);
+}
+.edu-entry{
+  padding:1.5rem 0;border-bottom:1px solid var(--border);
+  transition:border-color .2s;
+}
+.edu-entry:hover{border-color:var(--gold-line);}
+.edu-degree{
+  font-family:var(--r);font-size:1.1rem;font-weight:600;
+  color:var(--snow);margin-bottom:.3rem;
+}
+.edu-school{font-size:.78rem;color:var(--smoke);letter-spacing:.06em;}
+
+.cert-entry{
+  display:flex;align-items:center;gap:1.5rem;
+  padding:1.2rem;border:1px solid var(--border);
+  margin-bottom:.7rem;transition:all .2s;
+  position:relative;overflow:hidden;
+}
+.cert-entry::before{
+  content:'';position:absolute;left:0;top:0;bottom:0;
+  width:2px;background:var(--gold);
+  transform:scaleY(0);transition:transform .3s;
+}
+.cert-entry:hover{background:var(--surface);border-color:var(--border);}
+.cert-entry:hover::before{transform:scaleY(1);}
+.cert-icon{
+  width:36px;height:36px;background:var(--gold-dim);
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+  font-family:var(--r);font-size:.8rem;font-weight:700;color:var(--gold);
+}
+.cert-name{font-size:.88rem;font-weight:600;color:var(--snow);}
+.cert-org{font-size:.7rem;color:var(--smoke);letter-spacing:.06em;margin-top:.15rem;}
+
+/*──────────────────────────────────────────────
+  PHILOSOPHY / MANIFESTO
+──────────────────────────────────────────────*/
+#philosophy{
+  background:var(--deep);
+  text-align:center;
+  padding:10rem 4rem;
+  position:relative;overflow:hidden;
+}
+.phil-bg{
+  position:absolute;inset:0;
+  background:radial-gradient(ellipse 60% 60% at 50% 50%,rgba(201,168,76,.04) 0%,transparent 70%);
+  pointer-events:none;
+}
+blockquote{
+  font-family:var(--r);font-size:clamp(2rem,4.5vw,4rem);
+  font-weight:300;font-style:italic;
+  line-height:1.3;letter-spacing:-.01em;
+  color:var(--snow);max-width:900px;margin:0 auto 3rem;
+  position:relative;z-index:2;
+}
+blockquote::before{
+  content:'\201C';
+  font-family:var(--r);font-size:8rem;color:var(--gold);opacity:.2;
+  position:absolute;top:-2rem;left:-3rem;line-height:1;
+}
+cite{
+  font-family:var(--s);font-size:.68rem;font-weight:700;
+  letter-spacing:.3em;text-transform:uppercase;
+  color:var(--gold);font-style:normal;
+  position:relative;z-index:2;
+  display:block;
+}
+
+/*──────────────────────────────────────────────
+  CONTACT
+──────────────────────────────────────────────*/
+#contact{
+  background:var(--void);
+  padding:9rem 4rem;
+}
+.contact-layout{
+  display:grid;grid-template-columns:1.2fr 1fr;
+  gap:8rem;max-width:1200px;margin:0 auto;
+  align-items:start;
+}
+.contact-left .s-heading{margin-bottom:3rem;}
+.contact-info{display:flex;flex-direction:column;gap:0;}
+.ci{
+  display:grid;grid-template-columns:auto 1fr auto;gap:1.5rem;
+  align-items:center;padding:1.4rem 0;
+  border-bottom:1px solid var(--border);
+  transition:border-color .2s;
+}
+.ci:first-child{border-top:1px solid var(--border);}
+.ci:hover{border-color:var(--gold-line);}
+.ci-icon{
+  width:36px;height:36px;background:var(--gold-dim);
+  display:flex;align-items:center;justify-content:center;
+}
+.ci-icon svg{width:14px;height:14px;color:var(--gold);}
+.ci-text{font-size:.88rem;color:var(--silver);}
+.ci-label{font-size:.6rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--smoke);margin-bottom:.2rem;}
+.ci-value a{color:var(--silver);transition:color .2s;}
+.ci-value a:hover{color:var(--gold);}
+.ci-arrow{
+  width:28px;height:28px;border:1px solid var(--border);
+  display:flex;align-items:center;justify-content:center;
+  color:var(--smoke);transition:all .2s;
+}
+.ci:hover .ci-arrow{background:var(--gold);border-color:var(--gold);color:var(--void);}
+
+.contact-right{padding-top:2rem;}
+.contact-form-label{
+  font-size:.6rem;font-weight:700;letter-spacing:.25em;
+  text-transform:uppercase;color:var(--smoke);margin-bottom:.6rem;
+  display:block;
+}
+.contact-input,.contact-textarea{
+  width:100%;background:var(--surface);border:1px solid var(--border);
+  padding:1rem 1.2rem;color:var(--snow);
+  font-family:var(--s);font-size:.85rem;
+  margin-bottom:1.2rem;
+  transition:border-color .25s;
+  outline:none;
+  resize:none;
+}
+.contact-input::placeholder,.contact-textarea::placeholder{color:var(--muted);}
+.contact-input:focus,.contact-textarea:focus{border-color:var(--gold-line);}
+.contact-textarea{height:130px;}
+.btn-send{
+  width:100%;padding:1.1rem;
+  background:var(--gold);color:var(--void);
+  font-family:var(--s);font-size:.72rem;font-weight:700;
+  letter-spacing:.22em;text-transform:uppercase;
+  border:none;cursor:pointer;
+  transition:background .25s,transform .2s;
+}
+.btn-send:hover{background:#e0b84e;transform:translateY(-2px);}
+
+/*──────────────────────────────────────────────
+  FOOTER
+──────────────────────────────────────────────*/
+footer{
+  background:var(--void);
+  border-top:1px solid var(--border);
+  padding:2.5rem 4rem;
+  display:flex;justify-content:space-between;align-items:center;
+  gap:2rem;flex-wrap:wrap;
+}
+.footer-brand{
+  font-family:var(--r);font-size:1rem;font-weight:600;
+  letter-spacing:.08em;color:var(--snow);
+}
+.footer-brand span{color:var(--gold);}
+footer p{font-size:.68rem;letter-spacing:.12em;color:var(--smoke);}
+.footer-links{display:flex;gap:2rem;}
+.footer-links a{
+  font-size:.62rem;font-weight:700;letter-spacing:.2em;
+  text-transform:uppercase;color:var(--smoke);
+  transition:color .2s;
+}
+.footer-links a:hover{color:var(--gold);}
+
+/*──────────────────────────────────────────────
+  RESPONSIVE
+──────────────────────────────────────────────*/
+@media(max-width:960px){
+  nav{padding:1.2rem 1.5rem;}
+  .nav-links{display:none;}
+  #hero{padding:0 1.5rem;}
+  .hero-content{padding:9rem 0 4rem;}
+  .hero-strip{flex-wrap:wrap;gap:2rem;}
+  .section{padding:6rem 1.5rem;}
+  .about-layout{grid-template-columns:1fr;gap:4rem;}
+  .profile-card{position:relative;top:0;}
+  .expertise-grid{grid-template-columns:1fr;border:none;gap:1px;}
+  .exp-card{border-right:none;}
+  .exp-card:nth-child(3n){border-right:none;}
+  #experience::before{left:calc(1.5rem + 24px);}
+  .xp-item{gap:2rem;}
+  .work-grid{grid-template-columns:1fr;gap:1px;}
+  .tools-header{grid-template-columns:1fr;gap:3rem;}
+  .cred-layout{grid-template-columns:1fr;gap:4rem;}
+  .contact-layout{grid-template-columns:1fr;gap:4rem;}
+  footer{flex-direction:column;text-align:center;}
+  .footer-links{justify-content:center;}
+}
+@media(max-width:600px){
+  .hero-h1{font-size:clamp(3.5rem,14vw,5rem);}
+  .s-heading{font-size:clamp(2rem,8vw,3rem);}
+  blockquote{font-size:clamp(1.5rem,5vw,2.5rem);}
+}
+@media print{
+  body{cursor:auto;}
+  #cursor,#cursor-ring,#loader,#grain{display:none!important;}
+  nav{position:relative;background:transparent;border:none;}
+  .section{padding:4rem 2rem;}
+  .reveal{opacity:1;transform:none;}
+  .hero-diagonal,.hero-grid{display:none;}
+}
+</style>
+</head>
+<body>
+
+<!-- GRAIN -->
+<div id="grain"></div>
+
+<!-- CURSOR -->
+<div id="cursor"></div>
+<div id="cursor-ring"></div>
+
+<!-- LOADER -->
+<div id="loader">
+  <div class="loader-name">
+    <span>J</span><span>U</span><span>S</span><span>T</span><span>I</span><span>C</span><span>E</span>
+  </div>
+  <div class="loader-bar-wrap"><div class="loader-bar"></div></div>
+  <div class="loader-pct">Loading Portfolio</div>
+</div>
+
+<!-- NAV -->
+<nav id="nav">
+  <a class="nav-wordmark" href="#hero">Justice <span>Liassidzi</span></a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#expertise">Expertise</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#work">Work</a></li>
+    <li><a href="#credentials">Credentials</a></li>
+    <li><a href="#contact" class="nav-cta">Hire Me</a></li>
+  </ul>
+</nav>
+
+<!-- ════════════ HERO ════════════ -->
+<section id="hero">
+  <div class="hero-grid"></div>
+  <div class="hero-diagonal"></div>
+
+  <div class="hero-content">
+    <div class="hero-pre">
+      <span class="dot"></span>
+      Digital Marketing Executive
+      <span class="dot"></span>
+      Accra, Ghana
+    </div>
+
+    <h1 class="hero-h1">Justice<br><em>Liassidzi</em></h1>
+
+    <p class="hero-role">Growth Architect · B2B Lead Strategist · Digital Performance Specialist</p>
+
+    <p class="hero-desc">
+      I build digital ecosystems that generate qualified demand, amplify brand authority, and convert audiences into revenue. Combining AI-powered workflows with data-driven strategy — every campaign I run has one goal: <strong style="color:var(--snow);">measurable growth.</strong>
+    </p>
+
+    <div class="hero-actions">
+      <a href="#work" class="btn-gold">
+        <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
+        View My Work
+      </a>
+      <a href="#contact" class="btn-ghost">
+        <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+        Get in Touch
+      </a>
+    </div>
+  </div>
+
+  <div class="hero-strip">
+    <div class="hero-stat">
+      <div class="hero-stat-n">3<sup>+</sup></div>
+      <div class="hero-stat-l">Years Experience</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-n">3</div>
+      <div class="hero-stat-l">Brands Scaled</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-n">4</div>
+      <div class="hero-stat-l">Certifications</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-n">∞</div>
+      <div class="hero-stat-l">Growth Mindset</div>
+    </div>
+    <div class="scroll-cue">
+      <div class="scroll-line"></div>
+      Scroll
+    </div>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker" aria-hidden="true">
+  <div class="ticker-inner">
+    <span>Digital Marketing</span><span>B2B Lead Generation</span><span>SEO Strategy</span>
+    <span>LinkedIn Prospecting</span><span>Email Marketing</span><span>AI Automation</span>
+    <span>Performance Analytics</span><span>Campaign Management</span><span>Growth Hacking</span>
+    <span>Content Strategy</span><span>Brand Development</span><span>Conversion Optimization</span>
+    <!-- duplicate for seamless loop -->
+    <span>Digital Marketing</span><span>B2B Lead Generation</span><span>SEO Strategy</span>
+    <span>LinkedIn Prospecting</span><span>Email Marketing</span><span>AI Automation</span>
+    <span>Performance Analytics</span><span>Campaign Management</span><span>Growth Hacking</span>
+    <span>Content Strategy</span><span>Brand Development</span><span>Conversion Optimization</span>
+  </div>
+</div>
+
+<!-- ════════════ ABOUT ════════════ -->
+<section class="section" id="about">
+  <div class="section-inner">
+    <div class="about-layout">
+      <div class="about-text reveal">
+        <div class="s-label">About Me</div>
+        <h2 class="s-heading">The strategist<br>behind the <em>growth</em></h2>
+        <p>I'm a <strong>Digital Marketing & Business Development Professional</strong> based in Accra, Ghana — with a rare combination of creative vision and analytical precision that transforms digital channels into sustainable growth engines.</p>
+        <p>My approach goes beyond running campaigns. I <em>architect digital systems</em> — connecting SEO, B2B prospecting, email automation, and AI-powered workflows into a unified engine that produces qualified demand and measurable ROI.</p>
+        <p>With experience across <strong>startups, e-commerce, and hospitality brands</strong>, I thrive in fast-paced environments where experimentation is encouraged and performance is the only metric that matters. I bring English fluency and growing professional French communication skills to every engagement.</p>
+        <p>I don't just execute strategies — I <em>own outcomes</em>.</p>
+
+        <div class="about-details">
+          <div class="about-detail">
+            <div class="about-detail-icon">
+              <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+            </div>
+            <div class="about-detail-text">
+              <div><a href="mailto:jliassidzi@gmail.com">jliassidzi@gmail.com</a></div>
+              <div class="about-detail-sub">Primary Contact</div>
+            </div>
+          </div>
+          <div class="about-detail">
+            <div class="about-detail-icon">
+              <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.948V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
+            </div>
+            <div class="about-detail-text">
+              <div>+233 59 5320 299</div>
+              <div class="about-detail-sub">Phone / WhatsApp</div>
+            </div>
+          </div>
+          <div class="about-detail">
+            <div class="about-detail-icon">
+              <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/></svg>
+            </div>
+            <div class="about-detail-text">
+              <div><a href="https://linkedin.com/in/justiceliassidzi/" target="_blank">linkedin.com/in/justiceliassidzi</a></div>
+              <div class="about-detail-sub">LinkedIn Profile</div>
+            </div>
+          </div>
+          <div class="about-detail">
+            <div class="about-detail-icon">
+              <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+            </div>
+            <div class="about-detail-text">
+              <div>Accra, Ghana</div>
+              <div class="about-detail-sub">Available for Remote &amp; On-site</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="reveal reveal-delay-2">
+        <div class="profile-card">
+          <div class="profile-card-top">
+            <div class="profile-initials">JL</div>
+            <div class="profile-ring"></div>
+            <div class="profile-monogram">JL</div>
+          </div>
+          <div class="profile-card-body">
+            <div class="profile-card-name">Justice Liassidzi</div>
+            <div class="profile-card-title">Digital Marketing Executive</div>
+            <div class="profile-card-tags">
+              <div class="ptag">SEO</div>
+              <div class="ptag">B2B Leads</div>
+              <div class="ptag">Email</div>
+              <div class="ptag">LinkedIn</div>
+              <div class="ptag">Analytics</div>
+              <div class="ptag">AI Tools</div>
+              <div class="ptag">Automation</div>
+              <div class="ptag">Social Media</div>
+              <div class="ptag">Paid Ads</div>
+              <div class="ptag">Content</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════ EXPERTISE ════════════ -->
+<section class="section" id="expertise">
+  <div class="section-inner">
+    <div class="s-label reveal">Core Expertise</div>
+    <h2 class="s-heading reveal">Six pillars of<br><em>digital mastery</em></h2>
+    <p class="s-body reveal">Every service I deliver is rooted in strategic thinking, powered by data, and executed with precision across the full digital marketing spectrum.</p>
+
+    <div class="expertise-grid">
+      <div class="exp-card reveal">
+        <div class="exp-num">01</div>
+        <div class="exp-title">Multichannel Campaign Management</div>
+        <div class="exp-desc">End-to-end planning, execution, and optimization of campaigns across LinkedIn, email, social, and paid channels — aligned to business objectives and conversion goals.</div>
+        <div class="exp-tags">
+          <div class="exp-tag">Strategy</div><div class="exp-tag">Execution</div><div class="exp-tag">Optimization</div>
+        </div>
+      </div>
+      <div class="exp-card reveal reveal-delay-1">
+        <div class="exp-num">02</div>
+        <div class="exp-title">B2B Lead Generation & Prospecting</div>
+        <div class="exp-desc">Systematic identification, qualification, and nurturing of B2B prospects through digital channels — managing full pipelines from cold outreach to signed agreement.</div>
+        <div class="exp-tags">
+          <div class="exp-tag">LinkedIn</div><div class="exp-tag">Outreach</div><div class="exp-tag">Pipeline</div>
+        </div>
+      </div>
+      <div class="exp-card reveal reveal-delay-2">
+        <div class="exp-num">03</div>
+        <div class="exp-title">SEO & Organic Growth</div>
+        <div class="exp-desc">Technical audits, keyword architecture, on-page optimization, and content strategies that compound over time — building lasting organic visibility and inbound traffic.</div>
+        <div class="exp-tags">
+          <div class="exp-tag">Technical SEO</div><div class="exp-tag">Keywords</div><div class="exp-tag">Content</div>
+        </div>
+      </div>
+      <div class="exp-card reveal reveal-delay-3">
+        <div class="exp-num">04</div>
+        <div class="exp-title">Email Marketing & Automation</div>
+        <div class="exp-desc">Segmented, high-converting email campaigns and nurture sequences — from copywriting and design briefing through deployment, testing, and performance tracking.</div>
+        <div class="exp-tags">
+          <div class="exp-tag">Campaigns</div><div class="exp-tag">Automation</div><div class="exp-tag">A/B Testing</div>
+        </div>
+      </div>
+      <div class="exp-card reveal reveal-delay-4">
+        <div class="exp-num">05</div>
+        <div class="exp-title">AI-Powered Marketing Workflows</div>
+        <div class="exp-desc">Leveraging cutting-edge AI tools to scale content creation, automate prospecting sequences, and generate performance insights — compressing weeks of work into hours.</div>
+        <div class="exp-tags">
+          <div class="exp-tag">AI Tools</div><div class="exp-tag">Automation</div><div class="exp-tag">Scale</div>
+        </div>
+      </div>
+      <div class="exp-card reveal reveal-delay-5">
+        <div class="exp-num">06</div>
+        <div class="exp-title">Analytics & Performance Intelligence</div>
+        <div class="exp-desc">KPI framework design, real-time monitoring, competitive benchmarking, and boardroom-ready reporting that translates complex data into clear strategic recommendations.</div>
+        <div class="exp-tags">
+          <div class="exp-tag">KPIs</div><div class="exp-tag">Reporting</div><div class="exp-tag">Insights</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════ EXPERIENCE ════════════ -->
+<section class="section" id="experience">
+  <div class="section-inner">
+    <div class="s-label reveal">Career Journey</div>
+    <h2 class="s-heading reveal">Where I've<br><em>delivered</em> results</h2>
+    <p class="s-body reveal">A track record built across diverse industries — from tech startups to e-commerce and hospitality — always focused on one thing: growth.</p>
+
+    <div class="xp-item reveal">
+      <div class="xp-left">
+        <div class="xp-dot"></div>
+        <div class="xp-year">2025 — 2026</div>
+      </div>
+      <div class="xp-right">
+        <div class="xp-period">May 2025 – January 2026</div>
+        <div class="xp-role">Digital Marketer</div>
+        <div class="xp-company">Adjoaa <span>· Contract · Accra, Ghana</span></div>
+        <ul class="xp-list">
+          <li>Developed and executed digital marketing campaigns focused on lead generation, visibility, and conversion for B2B clients and startups.</li>
+          <li>Managed LinkedIn outreach and digital prospecting campaigns — building qualified pipelines for client acquisition.</li>
+          <li>Created performance-driven content for websites, social media, and email campaigns to strengthen brand positioning.</li>
+          <li>Implemented SEO optimization strategies improving online discoverability and search visibility across multiple client accounts.</li>
+          <li>Deployed AI-powered tools and automation workflows to streamline marketing and prospecting operations at scale.</li>
+          <li>Produced strategic performance reports with actionable recommendations based on campaign data analysis.</li>
+          <li>Led competitive intelligence and digital trend monitoring to sharpen campaign targeting and positioning.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="xp-item reveal">
+      <div class="xp-left">
+        <div class="xp-dot"></div>
+        <div class="xp-year">2024 — 2025</div>
+      </div>
+      <div class="xp-right">
+        <div class="xp-period">December 2024 – May 2025</div>
+        <div class="xp-role">SEO & Digital Marketing Specialist</div>
+        <div class="xp-company">Weekaway Africa</div>
+        <ul class="xp-list">
+          <li>Conducted comprehensive SEO audits and keyword research for e-commerce brands specializing in African and Black-owned products.</li>
+          <li>Developed digital acquisition and content marketing strategies to improve organic traffic and audience engagement.</li>
+          <li>Supported email marketing initiatives and customer engagement campaigns that strengthened retention metrics.</li>
+          <li>Monitored analytics and performance KPIs, translating data into actionable growth recommendations.</li>
+          <li>Contributed to brand positioning strategies and online growth initiatives across key platforms.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="xp-item reveal">
+      <div class="xp-left">
+        <div class="xp-dot"></div>
+        <div class="xp-year">2024 — 2026</div>
+      </div>
+      <div class="xp-right">
+        <div class="xp-period">January 2024 – January 2026</div>
+        <div class="xp-role">Social Media Manager</div>
+        <div class="xp-company">Healthy Krush Restaurant Ltd. <span>· Accra, Ghana</span></div>
+        <ul class="xp-list">
+          <li>Developed and executed social media strategies that increased brand awareness, engagement, and community loyalty.</li>
+          <li>Created high-performing content tailored to target audiences across Instagram, Facebook, and other key platforms.</li>
+          <li>Managed content calendars, scheduling, and community management for a consistent and responsive brand presence.</li>
+          <li>Executed paid social media campaigns that expanded reach, drove lead generation, and lifted conversions.</li>
+          <li>Managed influencer collaborations and co-marketing campaigns to enhance brand visibility and credibility.</li>
+          <li>Optimized content using SEO best practices and platform-specific algorithms for maximum organic reach.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════ SELECTED WORK ════════════ -->
+<section class="section" id="work">
+  <div class="section-inner">
+    <div class="s-label reveal">Selected Work</div>
+    <h2 class="s-heading reveal">Campaigns that<br>moved the <em>needle</em></h2>
+    <p class="s-body reveal">Real projects. Real results. Each engagement represents a distinct challenge solved through strategy, creativity, and relentless execution.</p>
+
+    <div class="work-grid">
+      <div class="work-card reveal">
+        <div class="work-card-index">01</div>
+        <div class="work-type">B2B Prospecting · Adjoaa</div>
+        <div class="work-title">LinkedIn Outreach Engine for Startup Client Acquisition</div>
+        <div class="work-desc">Designed a systematic LinkedIn prospecting system targeting B2B decision-makers across startup and technology sectors. Built personalized messaging sequences, automated follow-up workflows, and a structured pipeline management process that consistently delivered qualified discovery calls.</div>
+        <div class="work-metrics">
+          <div class="wm"><div class="wm-v">↑ CTR</div><div class="wm-l">Connection Rate</div></div>
+          <div class="wm"><div class="wm-v">Qualified</div><div class="wm-l">Meetings Booked</div></div>
+          <div class="wm"><div class="wm-v">AI-Driven</div><div class="wm-l">Workflow Automation</div></div>
+        </div>
+      </div>
+      <div class="work-card reveal reveal-delay-1">
+        <div class="work-card-index">02</div>
+        <div class="work-type">SEO · Weekaway Africa</div>
+        <div class="work-title">E-Commerce SEO Audit & Organic Traffic Strategy</div>
+        <div class="work-desc">Executed a full technical SEO audit and keyword architecture project for an e-commerce platform championing African and Black-owned products. Delivered a comprehensive acquisition strategy to increase organic traffic, improve search rankings, and reduce paid acquisition dependency.</div>
+        <div class="work-metrics">
+          <div class="wm"><div class="wm-v">↑ Organic</div><div class="wm-l">Traffic Growth</div></div>
+          <div class="wm"><div class="wm-v">Full Audit</div><div class="wm-l">Technical SEO</div></div>
+          <div class="wm"><div class="wm-v">Keyword</div><div class="wm-l">Architecture Built</div></div>
+        </div>
+      </div>
+      <div class="work-card reveal reveal-delay-2">
+        <div class="work-card-index">03</div>
+        <div class="work-type">Social Media · Healthy Krush</div>
+        <div class="work-title">Full-Funnel Social Media Growth & Brand Building</div>
+        <div class="work-desc">Managed the complete social media ecosystem for a growing restaurant brand — from strategy and content creation to paid advertising and influencer partnerships. Built a loyal engaged community, drove measurable foot traffic, and positioned the brand as a premium lifestyle choice in Accra.</div>
+        <div class="work-metrics">
+          <div class="wm"><div class="wm-v">↑ Engagement</div><div class="wm-l">Community Growth</div></div>
+          <div class="wm"><div class="wm-v">Paid Ads</div><div class="wm-l">Campaigns Run</div></div>
+          <div class="wm"><div class="wm-v">Influencer</div><div class="wm-l">Partnerships Led</div></div>
+        </div>
+      </div>
+      <div class="work-card reveal reveal-delay-3">
+        <div class="work-card-index">04</div>
+        <div class="work-type">Email Marketing · Multi-Brand</div>
+        <div class="work-title">Automated Email Nurture & Engagement Sequences</div>
+        <div class="work-desc">Designed and deployed segmented email marketing campaigns across multiple brands — covering onboarding, engagement nurture, promotional, and re-activation flows. Used A/B testing and performance data to continuously refine open rates, click-through rates, and conversion outcomes.</div>
+        <div class="work-metrics">
+          <div class="wm"><div class="wm-v">↑ Open Rate</div><div class="wm-l">Lift Achieved</div></div>
+          <div class="wm"><div class="wm-v">Segmented</div><div class="wm-l">Audience Lists</div></div>
+          <div class="wm"><div class="wm-v">A/B Tested</div><div class="wm-l">All Campaigns</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════ TOOLS ════════════ -->
+<section class="section" id="tools" style="position:relative;overflow:hidden;">
+  <div class="tools-big-text">TOOLS</div>
+  <div class="section-inner">
+    <div class="tools-header">
+      <div>
+        <div class="s-label reveal">Tech Stack</div>
+        <h2 class="s-heading reveal">The arsenal I<br>deploy <em>daily</em></h2>
+      </div>
+      <p class="s-body reveal" style="margin-bottom:0;">Proficiency across the full modern digital marketing stack — from strategy and creation through automation, analytics, and collaboration.</p>
+    </div>
+
+    <div class="tools-categories">
+      <div class="tool-cat reveal">
+        <div class="tool-cat-label">Prospecting & CRM</div>
+        <div class="tool-chips">
+          <div class="tool-chip">LinkedIn Sales Navigator</div>
+          <div class="tool-chip">HubSpot CRM</div>
+          <div class="tool-chip">Apollo.io</div>
+          <div class="tool-chip">Hunter.io</div>
+          <div class="tool-chip">Phantombuster</div>
+        </div>
+      </div>
+      <div class="tool-cat reveal reveal-delay-1">
+        <div class="tool-cat-label">SEO & Analytics</div>
+        <div class="tool-chips">
+          <div class="tool-chip">Google Analytics 4</div>
+          <div class="tool-chip">Google Search Console</div>
+          <div class="tool-chip">SEMrush</div>
+          <div class="tool-chip">Ahrefs</div>
+          <div class="tool-chip">Screaming Frog</div>
+          <div class="tool-chip">Moz</div>
+        </div>
+      </div>
+      <div class="tool-cat reveal reveal-delay-2">
+        <div class="tool-cat-label">Email & Advertising</div>
+        <div class="tool-chips">
+          <div class="tool-chip">Mailchimp</div>
+          <div class="tool-chip">ActiveCampaign</div>
+          <div class="tool-chip">Meta Ads Manager</div>
+          <div class="tool-chip">Google Ads</div>
+          <div class="tool-chip">LinkedIn Campaign Manager</div>
+        </div>
+      </div>
+      <div class="tool-cat reveal reveal-delay-3">
+        <div class="tool-cat-label">AI & Automation</div>
+        <div class="tool-chips">
+          <div class="tool-chip">ChatGPT / Claude AI</div>
+          <div class="tool-chip">Zapier</div>
+          <div class="tool-chip">Make (Integromat)</div>
+          <div class="tool-chip">Jasper AI</div>
+          <div class="tool-chip">Copy.ai</div>
+          <div class="tool-chip">Notion AI</div>
+        </div>
+      </div>
+      <div class="tool-cat reveal reveal-delay-4">
+        <div class="tool-cat-label">Content & Collaboration</div>
+        <div class="tool-chips">
+          <div class="tool-chip">Canva Pro</div>
+          <div class="tool-chip">Buffer</div>
+          <div class="tool-chip">Hootsuite</div>
+          <div class="tool-chip">Slack</div>
+          <div class="tool-chip">Notion</div>
+          <div class="tool-chip">ClickUp</div>
+          <div class="tool-chip">Google Workspace</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════ CREDENTIALS ════════════ -->
+<section class="section" id="credentials">
+  <div class="section-inner">
+    <div class="s-label reveal">Education & Certifications</div>
+    <h2 class="s-heading reveal">Credentials that<br><em>validate</em> the work</h2>
+    <p class="s-body reveal">Academic foundations combined with industry-recognised certifications that keep my practice at the leading edge of digital marketing.</p>
+
+    <div class="cred-layout">
+      <div class="reveal">
+        <div class="cred-col-label">Academic Background</div>
+        <div class="edu-entry">
+          <div class="edu-degree">HND Information Technology</div>
+          <div class="edu-school">ETECH College · Dodowa, Ghana</div>
+        </div>
+        <div class="edu-entry">
+          <div class="edu-degree">Web Development Training</div>
+          <div class="edu-school">MEST Africa</div>
+        </div>
+        <div class="edu-entry">
+          <div class="edu-degree">AI Career Essentials Programme</div>
+          <div class="edu-school">ALX Africa</div>
+        </div>
+      </div>
+
+      <div class="reveal reveal-delay-2">
+        <div class="cred-col-label">Professional Certifications</div>
+        <div class="cert-entry">
+          <div class="cert-icon">✦</div>
+          <div>
+            <div class="cert-name">Professional Certification in Digital Marketing</div>
+            <div class="cert-org">UniAthena</div>
+          </div>
+        </div>
+        <div class="cert-entry">
+          <div class="cert-icon">✦</div>
+          <div>
+            <div class="cert-name">Social Media Management</div>
+            <div class="cert-org">Coursera</div>
+          </div>
+        </div>
+        <div class="cert-entry">
+          <div class="cert-icon">✦</div>
+          <div>
+            <div class="cert-name">Web Development</div>
+            <div class="cert-org">MEST Africa</div>
+          </div>
+        </div>
+        <div class="cert-entry">
+          <div class="cert-icon">✦</div>
+          <div>
+            <div class="cert-name">AI Career Essentials</div>
+            <div class="cert-org">ALX Africa</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════ PHILOSOPHY ════════════ -->
+<section id="philosophy">
+  <div class="phil-bg"></div>
+  <div class="reveal">
+    <div class="s-label" style="justify-content:center;margin-bottom:3rem;">
+      My Philosophy
+    </div>
+    <blockquote>
+      "I don't chase impressions — I engineer growth systems that compound, convert, and create lasting competitive advantage for every brand I touch."
+    </blockquote>
+    <cite>— Justice Liassidzi, Digital Marketing Executive</cite>
+  </div>
+</section>
+
+<!-- ════════════ CONTACT ════════════ -->
+<section id="contact">
+  <div class="contact-layout">
+    <div class="contact-left reveal">
+      <div class="s-label">Let's Connect</div>
+      <h2 class="s-heading">Ready to build<br>something <em>remarkable?</em></h2>
+      <p style="font-size:.9rem;line-height:1.9;color:var(--silver);margin-bottom:4rem;">
+        Whether you're looking to scale your digital presence, generate qualified leads, or build a performance marketing system from the ground up — I'm ready to make it happen.
+      </p>
+
+      <div class="contact-info">
+        <div class="ci">
+          <div class="ci-icon">
+            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+          </div>
+          <div class="ci-text">
+            <div class="ci-label">Email</div>
+            <div class="ci-value"><a href="mailto:jliassidzi@gmail.com">jliassidzi@gmail.com</a></div>
+          </div>
+          <div class="ci-arrow">
+            <svg width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
+          </div>
+        </div>
+        <div class="ci">
+          <div class="ci-icon">
+            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.948V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
+          </div>
+          <div class="ci-text">
+            <div class="ci-label">Phone / WhatsApp</div>
+            <div class="ci-value"><a href="tel:+233595320299">+233 59 5320 299</a></div>
+          </div>
+          <div class="ci-arrow">
+            <svg width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
+          </div>
+        </div>
+        <div class="ci">
+          <div class="ci-icon">
+            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/></svg>
+          </div>
+          <div class="ci-text">
+            <div class="ci-label">LinkedIn</div>
+            <div class="ci-value"><a href="https://linkedin.com/in/justiceliassidzi/" target="_blank">linkedin.com/in/justiceliassidzi</a></div>
+          </div>
+          <div class="ci-arrow">
+            <svg width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
+          </div>
+        </div>
+        <div class="ci">
+          <div class="ci-icon">
+            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+          </div>
+          <div class="ci-text">
+            <div class="ci-label">Location</div>
+            <div class="ci-value">Accra, Ghana · Open to Remote</div>
+          </div>
+          <div class="ci-arrow">
+            <svg width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="contact-right reveal reveal-delay-2">
+      <label class="contact-form-label">Your Name</label>
+      <input class="contact-input" type="text" placeholder="Full name"/>
+      <label class="contact-form-label">Email Address</label>
+      <input class="contact-input" type="email" placeholder="your@email.com"/>
+      <label class="contact-form-label">Company / Organization</label>
+      <input class="contact-input" type="text" placeholder="Company name"/>
+      <label class="contact-form-label">How can I help?</label>
+      <textarea class="contact-textarea" placeholder="Tell me about your project or opportunity..."></textarea>
+      <button class="btn-send" onclick="handleContactForm(this)">Send Message →</button>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-brand">Justice <span>Liassidzi</span></div>
+  <p>© 2026 · Digital Marketing Executive · Accra, Ghana</p>
+  <div class="footer-links">
+    <a href="mailto:jliassidzi@gmail.com">Email</a>
+    <a href="https://linkedin.com/in/justiceliassidzi/" target="_blank">LinkedIn</a>
+    <a href="#hero">Back to Top ↑</a>
+  </div>
+</footer>
+
+<!-- ════════════ JAVASCRIPT ════════════ -->
+<script>
+/* ── Loader ── */
+window.addEventListener('load',()=>{
+  setTimeout(()=>{
+    document.getElementById('loader').classList.add('hidden');
+  },2200);
+});
+
+/* ── Custom cursor ── */
+const cur = document.getElementById('cursor');
+const ring = document.getElementById('cursor-ring');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{
+  mx=e.clientX;my=e.clientY;
+  cur.style.left=mx+'px';cur.style.top=my+'px';
+});
+(function animRing(){
+  rx+=(mx-rx)*.12;ry+=(my-ry)*.12;
+  ring.style.left=rx+'px';ring.style.top=ry+'px';
+  requestAnimationFrame(animRing);
+})();
+document.querySelectorAll('a,button,.exp-card,.work-card,.tool-chip').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{cur.style.width='18px';cur.style.height='18px';ring.style.width='50px';ring.style.height='50px';});
+  el.addEventListener('mouseleave',()=>{cur.style.width='10px';cur.style.height='10px';ring.style.width='36px';ring.style.height='36px';});
+});
+
+/* ── Nav scroll ── */
+window.addEventListener('scroll',()=>{
+  document.getElementById('nav').classList.toggle('scrolled',window.scrollY>80);
+});
+
+/* ── Scroll reveal ── */
+const reveals=document.querySelectorAll('.reveal');
+const obs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');}});
+},{threshold:0.12});
+reveals.forEach(el=>obs.observe(el));
+
+/* ── Contact form handler ── */
+function handleContactForm(btn){
+  const name=document.querySelector('.contact-input').value;
+  const email=document.querySelectorAll('.contact-input')[1].value;
+  if(!name||!email){
+    btn.textContent='Please fill required fields';
+    setTimeout(()=>{btn.textContent='Send Message →';},2000);
+    return;
+  }
+  btn.textContent='Message Sent ✦';
+  btn.style.background='#2d5a27';btn.style.color='#7fc97a';
+}
+</script>
+</body>
+</html>
